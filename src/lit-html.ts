@@ -47,7 +47,8 @@ export {
     isPrimitive,
     NodePart,
     PropertyCommitter,
-    PropertyPart
+    PropertyPart,
+    templateResultNodePartMap
 } from './lib/parts';
 export { RenderOptions } from './lib/render-options';
 export { parts, render } from './lib/render';

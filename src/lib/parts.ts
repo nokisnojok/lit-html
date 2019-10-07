@@ -90,6 +90,8 @@ export const __testOnlyClearSanitizerDoNotCallOrElse = () => {
     sanitizeDOMValueImpl = undefined;
 };
 
+export const templateResultNodePartMap = new WeakMap();
+
 /**
  * Writes attribute values to the DOM for a group of AttributeParts bound to a
  * single attribute. The value is only set once even if there are multiple parts
@@ -277,6 +279,9 @@ export class NodePart implements Part {
     }
 
     setValue(value: unknown): void {
+        if (typeof value === 'object' && !!value) {
+            templateResultNodePartMap.set(value, this);
+        }
         this.__pendingValue = value;
     }
 
