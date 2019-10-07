@@ -23,6 +23,8 @@
   ],
   "scripts": {
     "build": "tsc",
+    "prettier:format": "prettier-tslint fix '**/*.ts'",
+    "prettier": "pretty-quick --staged",
     "checksize": "rollup -c ; cat lit-html.bundled.js | gzip -9 | wc -c ; rm lit-html.bundled.js",
     "test": "npm run build && npm run lint && wct --npm",
     "quicktest": "wct -l chrome -p --npm",
@@ -31,6 +33,11 @@
     "prepublishOnly": "node check-version-tracker.js && npm run lint && npm test",
     "prepare": "npm run build",
     "publish-dev": "npm test && VERSION=${npm_package_version%-*}-dev.`git rev-parse --short HEAD` && npm version --no-git-tag-version $VERSION && npm publish --tag dev"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier"
+    }
   },
   "author": "The Polymer Authors",
   "devDependencies": {
@@ -41,8 +48,12 @@
     "@webcomponents/webcomponentsjs": "^2.0.4",
     "chai": "^4.1.2",
     "clang-format": "^1.2.4",
+    "husky": "^3.0.8",
     "lit-html-benchmarks": "^0.2.1",
     "mocha": "^5.2.0",
+    "prettier": "^1.18.2",
+    "prettier-tslint": "^0.4.2",
+    "pretty-quick": "^1.11.1",
     "rollup": "^1.19.0",
     "rollup-plugin-filesize": "^6.2.0",
     "rollup-plugin-terser": "^5.1.0",

@@ -12,38 +12,38 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {html, render} from '../../lib/shady-render.js';
+import { html, render } from '../../lib/shady-render.js';
 
 const assert = chai.assert;
 
 declare global {
-  interface Window {
-    WarnCount: number;
-  }
+    interface Window {
+        WarnCount: number;
+    }
 }
 
 suite('shady-render', () => {
-  test('warns if ShadyCSS version incorrect', function() {
-    if (typeof window.ShadyCSS === 'undefined') {
-      this.skip();
-      return;
-    }
-
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    container.attachShadow({mode: 'open'});
-    const result = html`
-      <style>
-        div {
-          border: 1px solid red;
+    test('warns if ShadyCSS version incorrect', function() {
+        if (typeof window.ShadyCSS === 'undefined') {
+            this.skip();
+            return;
         }
-      </style>
-      <div>Testing...</div>
-    `;
-    render(result, container.shadowRoot as DocumentFragment, {
-      scopeName: 'scope-4'
+
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        container.attachShadow({ mode: 'open' });
+        const result = html`
+            <style>
+                div {
+                    border: 1px solid red;
+                }
+            </style>
+            <div>Testing...</div>
+        `;
+        render(result, container.shadowRoot as DocumentFragment, {
+            scopeName: 'scope-4'
+        });
+        assert.isAbove(window.WarnCount, 0);
+        document.body.removeChild(container);
     });
-    assert.isAbove(window.WarnCount, 0);
-    document.body.removeChild(container);
-  });
 });

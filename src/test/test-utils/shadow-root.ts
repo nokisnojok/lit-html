@@ -11,14 +11,14 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import {render} from '../../lib/shady-render.js';
+import { render } from '../../lib/shady-render.js';
 
 /**
  * A helper for creating a shadowRoot on an element.
  */
 export const renderShadowRoot = (result: unknown, element: Element) => {
-  if (!element.shadowRoot) {
-    element.attachShadow({mode: 'open'});
-  }
-  render(result, element.shadowRoot!, {scopeName: element.localName});
+    if (!element.shadowRoot) {
+        element.attachShadow({ mode: 'open' });
+    }
+    render(result, element.shadowRoot!, { scopeName: element.localName });
 };

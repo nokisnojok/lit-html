@@ -12,15 +12,13 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {html, templateFactory} from '../../lit-html.js';
+import { html, templateFactory } from '../../lit-html.js';
 
 const assert = chai.assert;
 
 suite('TemplateFactory', () => {
-  test(
-      'returns identical templates for TemplateResults for same strings',
-      () => {
+    test('returns identical templates for TemplateResults for same strings', () => {
         const t = () => html``;
         assert.strictEqual(templateFactory(t()), templateFactory(t()));
-      });
+    });
 });
