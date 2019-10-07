@@ -12,12 +12,12 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {isPrimitive} from '../lib/parts.js';
-import {directive, NodePart, Part} from '../lit-html.js';
+import { isPrimitive } from '../lib/parts.js';
+import { directive, NodePart, Part } from '../lit-html.js';
 
 interface PreviousValue {
-  readonly value: unknown;
-  readonly fragment: DocumentFragment;
+    readonly value: unknown;
+    readonly fragment: DocumentFragment;
 }
 
 // For each part, remember the value that was last rendered to the part by the
@@ -35,20 +35,19 @@ const previousValues = new WeakMap<NodePart, PreviousValue>();
  * vulnerabilities.
  */
 export const unsafeHTML = directive((value: unknown) => (part: Part): void => {
-  if (!(part instanceof NodePart)) {
-    throw new Error('unsafeHTML can only be used in text bindings');
-  }
+    if (!(part instanceof NodePart)) {
+        throw new Error('unsafeHTML can only be used in text bindings');
+    }
 
-  const previousValue = previousValues.get(part);
+    const previousValue = previousValues.get(part);
 
-  if (previousValue !== undefined && isPrimitive(value) &&
-      value === previousValue.value && part.value === previousValue.fragment) {
-    return;
-  }
+    if (previousValue !== undefined && isPrimitive(value) && value === previousValue.value && part.value === previousValue.fragment) {
+        return;
+    }
 
-  const template = document.createElement('template');
-  template.innerHTML = value as string;  // innerHTML casts to string internally
-  const fragment = document.importNode(template.content, true);
-  part.setValue(fragment);
-  previousValues.set(part, {value, fragment});
+    const template = document.createElement('template');
+    template.innerHTML = value as string; // innerHTML casts to string internally
+    const fragment = document.importNode(template.content, true);
+    part.setValue(fragment);
+    previousValues.set(part, { value, fragment });
 });

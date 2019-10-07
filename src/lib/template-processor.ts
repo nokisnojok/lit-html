@@ -16,27 +16,25 @@
  * @module lit-html
  */
 
-import {Part} from './part.js';
-import {NodePart} from './parts.js';
-import {RenderOptions} from './render-options.js';
+import { Part } from './part.js';
+import { NodePart } from './parts.js';
+import { RenderOptions } from './render-options.js';
 
 export interface TemplateProcessor {
-  /**
-   * Create parts for an attribute-position binding, given the event, attribute
-   * name, and string literals.
-   *
-   * @param element The element containing the binding
-   * @param name  The attribute name
-   * @param strings The string literals. There are always at least two strings,
-   *   event for fully-controlled bindings with a single expression.
-   */
-  handleAttributeExpressions(
-      element: Element, name: string, strings: ReadonlyArray<string>,
-      options: RenderOptions): ReadonlyArray<Part>;
+    /**
+     * Create parts for an attribute-position binding, given the event, attribute
+     * name, and string literals.
+     *
+     * @param element The element containing the binding
+     * @param name  The attribute name
+     * @param strings The string literals. There are always at least two strings,
+     *   event for fully-controlled bindings with a single expression.
+     */
+    handleAttributeExpressions(element: Element, name: string, strings: ReadonlyArray<string>, options: RenderOptions): ReadonlyArray<Part>;
 
-  /**
-   * Create parts for a text-position binding.
-   * @param partOptions
-   */
-  handleTextExpression(options: RenderOptions): NodePart;
+    /**
+     * Create parts for a text-position binding.
+     * @param partOptions
+     */
+    handleTextExpression(options: RenderOptions): NodePart;
 }

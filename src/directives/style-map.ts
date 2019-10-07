@@ -12,10 +12,10 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {AttributePart, directive, Part, PropertyPart} from '../lit-html.js';
+import { AttributePart, directive, Part, PropertyPart } from '../lit-html.js';
 
 export interface StyleInfo {
-  readonly [name: string]: string;
+    readonly [name: string]: string;
 }
 
 /**
@@ -42,47 +42,49 @@ const previousStylePropertyCache = new WeakMap<AttributePart, Set<string>>();
  * @param styleInfo {StyleInfo}
  */
 export const styleMap = directive((styleInfo: StyleInfo) => (part: Part) => {
-  if (!(part instanceof AttributePart) || (part instanceof PropertyPart) ||
-      part.committer.name !== 'style' || part.committer.parts.length > 1) {
-    throw new Error(
-        'The `styleMap` directive must be used in the style attribute ' +
-        'and must be the only part in the attribute.');
-  }
-
-  const {committer} = part;
-  const {style} = committer.element as HTMLElement;
-
-  let previousStyleProperties = previousStylePropertyCache.get(part);
-
-  if (previousStyleProperties === undefined) {
-    // Write static styles once
-    style.cssText = committer.strings.join(' ');
-    previousStylePropertyCache.set(part, previousStyleProperties = new Set());
-  }
-
-  // Remove old properties that no longer exist in styleInfo
-  // We use forEach() instead of for-of so that re don't require down-level
-  // iteration.
-  previousStyleProperties.forEach((name) => {
-    if (!(name in styleInfo)) {
-      previousStyleProperties!.delete(name);
-      if (name.indexOf('-') === -1) {
-        // tslint:disable-next-line:no-any
-        (style as any)[name] = null;
-      } else {
-        style.removeProperty(name);
-      }
+    if (
+        !(part instanceof AttributePart) ||
+        part instanceof PropertyPart ||
+        part.committer.name !== 'style' ||
+        part.committer.parts.length > 1
+    ) {
+        throw new Error('The `styleMap` directive must be used in the style attribute ' + 'and must be the only part in the attribute.');
     }
-  });
 
-  // Add or update properties
-  for (const name in styleInfo) {
-    previousStyleProperties.add(name);
-    if (name.indexOf('-') === -1) {
-      // tslint:disable-next-line:no-any
-      (style as any)[name] = styleInfo[name];
-    } else {
-      style.setProperty(name, styleInfo[name]);
+    const { committer } = part;
+    const { style } = committer.element as HTMLElement;
+
+    let previousStyleProperties = previousStylePropertyCache.get(part);
+
+    if (previousStyleProperties === undefined) {
+        // Write static styles once
+        style.cssText = committer.strings.join(' ');
+        previousStylePropertyCache.set(part, (previousStyleProperties = new Set()));
     }
-  }
+
+    // Remove old properties that no longer exist in styleInfo
+    // We use forEach() instead of for-of so that re don't require down-level
+    // iteration.
+    previousStyleProperties.forEach((name) => {
+        if (!(name in styleInfo)) {
+            previousStyleProperties!.delete(name);
+            if (name.indexOf('-') === -1) {
+                // tslint:disable-next-line:no-any
+                (style as any)[name] = null;
+            } else {
+                style.removeProperty(name);
+            }
+        }
+    });
+
+    // Add or update properties
+    for (const name in styleInfo) {
+        previousStyleProperties.add(name);
+        if (name.indexOf('-') === -1) {
+            // tslint:disable-next-line:no-any
+            (style as any)[name] = styleInfo[name];
+        } else {
+            style.setProperty(name, styleInfo[name]);
+        }
+    }
 });

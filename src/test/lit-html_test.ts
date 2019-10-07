@@ -25,65 +25,65 @@ import * as LitHtml from '../lit-html.js';
 const assert = chai.assert;
 
 suite('index.js', () => {
-  test('html tag returns a TemplateResult', () => {
-    assert.instanceOf(LitHtml.html``, LibTemplateResult.TemplateResult);
-  });
-
-  test('svg tag returns a SVGTemplateResult', () => {
-    assert.instanceOf(LitHtml.svg``, LibTemplateResult.SVGTemplateResult);
-  });
-
-  test('exports everything from lib/template-result.js', () => {
-    Object.keys(LibTemplateResult).forEach((key) => {
-      assert.property(LitHtml, key);
+    test('html tag returns a TemplateResult', () => {
+        assert.instanceOf(LitHtml.html``, LibTemplateResult.TemplateResult);
     });
-  });
 
-  test('exports everything from lib/default-template-processor.js', () => {
-    Object.keys(LibDefaultTemplateProcessor).forEach((key) => {
-      assert.property(LitHtml, key);
+    test('svg tag returns a SVGTemplateResult', () => {
+        assert.instanceOf(LitHtml.svg``, LibTemplateResult.SVGTemplateResult);
     });
-  });
 
-  test('exports everything from lib/template-instance.js', () => {
-    Object.keys(LibTemplateInstance).forEach((key) => {
-      assert.property(LitHtml, key);
-    });
-  });
-
-  test('exports everything from lib/part.js', () => {
-    Object.keys(LibPart).forEach((key) => {
-      assert.property(LitHtml, key);
-    });
-  });
-
-  test('exports everything from lib/parts.js', () => {
-    Object.keys(LibParts)
-        .filter((k) => !/^__testOnly/.test(k))
-        .forEach((key) => {
-          assert.property(LitHtml, key);
+    test('exports everything from lib/template-result.js', () => {
+        Object.keys(LibTemplateResult).forEach((key) => {
+            assert.property(LitHtml, key);
         });
-  });
-
-  test('exports everything from lib/directive.js', () => {
-    Object.keys(LibDirective).forEach((key) => {
-      assert.property(LitHtml, key);
     });
-  });
 
-  test('exports everything from lib/render.js', () => {
-    Object.keys(LibRender).forEach((key) => {
-      assert.property(LitHtml, key);
+    test('exports everything from lib/default-template-processor.js', () => {
+        Object.keys(LibDefaultTemplateProcessor).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
     });
-  });
 
-  test('exports everything from lib/template-factory.js', () => {
-    Object.keys(LibTemplateFactory).forEach((key) => {
-      assert.property(LitHtml, key);
+    test('exports everything from lib/template-instance.js', () => {
+        Object.keys(LibTemplateInstance).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
     });
-  });
 
-  test('adds a version number', () => {
-    assert.equal(window['litHtmlVersions'].length, 1);
-  });
+    test('exports everything from lib/part.js', () => {
+        Object.keys(LibPart).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
+    });
+
+    test('exports everything from lib/parts.js', () => {
+        Object.keys(LibParts)
+            .filter((k) => !/^__testOnly/.test(k))
+            .forEach((key) => {
+                assert.property(LitHtml, key);
+            });
+    });
+
+    test('exports everything from lib/directive.js', () => {
+        Object.keys(LibDirective).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
+    });
+
+    test('exports everything from lib/render.js', () => {
+        Object.keys(LibRender).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
+    });
+
+    test('exports everything from lib/template-factory.js', () => {
+        Object.keys(LibTemplateFactory).forEach((key) => {
+            assert.property(LitHtml, key);
+        });
+    });
+
+    test('adds a version number', () => {
+        assert.equal(window['litHtmlVersions'].length, 1);
+    });
 });

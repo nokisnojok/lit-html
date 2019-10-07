@@ -12,11 +12,10 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {AttributePart, directive, Part, PropertyPart} from '../lit-html.js';
-
+import { AttributePart, directive, Part, PropertyPart } from '../lit-html.js';
 
 export interface ClassInfo {
-  readonly [name: string]: string|boolean|number;
+    readonly [name: string]: string | boolean | number;
 }
 
 /**
@@ -36,49 +35,51 @@ const previousClassesCache = new WeakMap<Part, Set<string>>();
  * @param classInfo {ClassInfo}
  */
 export const classMap = directive((classInfo: ClassInfo) => (part: Part) => {
-  if (!(part instanceof AttributePart) || (part instanceof PropertyPart) ||
-      part.committer.name !== 'class' || part.committer.parts.length > 1) {
-    throw new Error(
-        'The `classMap` directive must be used in the `class` attribute ' +
-        'and must be the only part in the attribute.');
-  }
-
-  const {committer} = part;
-  const {element} = committer;
-
-  let previousClasses = previousClassesCache.get(part);
-  if (previousClasses === undefined) {
-    // Write static classes once
-    element.className = committer.strings.join(' ');
-    previousClassesCache.set(part, previousClasses = new Set());
-  }
-
-  const {classList} = element;
-
-  // Remove old classes that no longer apply
-  // We use forEach() instead of for-of so that re don't require down-level
-  // iteration.
-  previousClasses.forEach((name) => {
-    if (!(name in classInfo)) {
-      classList.remove(name);
-      previousClasses!.delete(name);
+    if (
+        !(part instanceof AttributePart) ||
+        part instanceof PropertyPart ||
+        part.committer.name !== 'class' ||
+        part.committer.parts.length > 1
+    ) {
+        throw new Error('The `classMap` directive must be used in the `class` attribute ' + 'and must be the only part in the attribute.');
     }
-  });
 
-  // Add or remove classes based on their classMap value
-  for (const name in classInfo) {
-    const value = classInfo[name];
-    // We explicitly want a loose truthy check of `value` because it seems more
-    // convenient that '' and 0 are skipped.
-    // tslint:disable-next-line: triple-equals
-    if (value != previousClasses.has(name)) {
-      if (value) {
-        classList.add(name);
-        previousClasses.add(name);
-      } else {
-        classList.remove(name);
-        previousClasses.delete(name);
-      }
+    const { committer } = part;
+    const { element } = committer;
+
+    let previousClasses = previousClassesCache.get(part);
+    if (previousClasses === undefined) {
+        // Write static classes once
+        element.className = committer.strings.join(' ');
+        previousClassesCache.set(part, (previousClasses = new Set()));
     }
-  }
+
+    const { classList } = element;
+
+    // Remove old classes that no longer apply
+    // We use forEach() instead of for-of so that re don't require down-level
+    // iteration.
+    previousClasses.forEach((name) => {
+        if (!(name in classInfo)) {
+            classList.remove(name);
+            previousClasses!.delete(name);
+        }
+    });
+
+    // Add or remove classes based on their classMap value
+    for (const name in classInfo) {
+        const value = classInfo[name];
+        // We explicitly want a loose truthy check of `value` because it seems more
+        // convenient that '' and 0 are skipped.
+        // tslint:disable-next-line: triple-equals
+        if (value != previousClasses.has(name)) {
+            if (value) {
+                classList.add(name);
+                previousClasses.add(name);
+            } else {
+                classList.remove(name);
+                previousClasses.delete(name);
+            }
+        }
+    }
 });

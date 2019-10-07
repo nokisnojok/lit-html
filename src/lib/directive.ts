@@ -16,7 +16,7 @@
  * @module lit-html
  */
 
-import {Part} from './part.js';
+import { Part } from './part.js';
 
 const directives = new WeakMap<object, true>();
 
@@ -67,11 +67,11 @@ export type DirectiveFn = (part: Part) => void;
  */
 export const directive = <F extends DirectiveFactory>(f: F): F =>
     ((...args: unknown[]) => {
-      const d = f(...args);
-      directives.set(d, true);
-      return d;
+        const d = f(...args);
+        directives.set(d, true);
+        return d;
     }) as F;
 
 export const isDirective = (o: unknown): o is DirectiveFn => {
-  return typeof o === 'function' && directives.has(o);
+    return typeof o === 'function' && directives.has(o);
 };

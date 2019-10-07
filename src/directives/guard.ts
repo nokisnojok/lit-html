@@ -12,7 +12,7 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {directive, Part} from '../lit-html.js';
+import { directive, Part } from '../lit-html.js';
 
 const previousValues = new WeakMap<Part, unknown>();
 
@@ -49,26 +49,20 @@ const previousValues = new WeakMap<Part, unknown>();
  * @param value the value to check before re-rendering
  * @param f the template function
  */
-export const guard =
-    directive((value: unknown, f: () => unknown) => (part: Part): void => {
-      const previousValue = previousValues.get(part);
-      if (Array.isArray(value)) {
+export const guard = directive((value: unknown, f: () => unknown) => (part: Part): void => {
+    const previousValue = previousValues.get(part);
+    if (Array.isArray(value)) {
         // Dirty-check arrays by item
-        if (Array.isArray(previousValue) &&
-            previousValue.length === value.length &&
-            value.every((v, i) => v === previousValue[i])) {
-          return;
+        if (Array.isArray(previousValue) && previousValue.length === value.length && value.every((v, i) => v === previousValue[i])) {
+            return;
         }
-      } else if (
-          previousValue === value &&
-          (value !== undefined || previousValues.has(part))) {
+    } else if (previousValue === value && (value !== undefined || previousValues.has(part))) {
         // Dirty-check non-arrays by identity
         return;
-      }
+    }
 
-      part.setValue(f());
-      // Copy the value if it's an array so that if it's mutated we don't forget
-      // what the previous values were.
-      previousValues.set(
-          part, Array.isArray(value) ? Array.from(value) : value);
-    });
+    part.setValue(f());
+    // Copy the value if it's an array so that if it's mutated we don't forget
+    // what the previous values were.
+    previousValues.set(part, Array.isArray(value) ? Array.from(value) : value);
+});

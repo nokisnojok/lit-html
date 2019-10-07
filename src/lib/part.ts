@@ -21,25 +21,25 @@
  * by lit-html.
  */
 export interface Part {
-  readonly value: unknown;
+    readonly value: unknown;
 
-  /**
-   * Sets the current part value, but does not write it to the DOM.
-   * @param value The value that will be committed.
-   */
-  setValue(value: unknown): void;
+    /**
+     * Sets the current part value, but does not write it to the DOM.
+     * @param value The value that will be committed.
+     */
+    setValue(value: unknown): void;
 
-  /**
-   * Commits the current part value, causing it to actually be written to the
-   * DOM.
-   *
-   * Directives are run at the start of `commit`, so that if they call
-   * `part.setValue(...)` synchronously that value will be used in the current
-   * commit, and there's no need to call `part.commit()` within the directive.
-   * If directives set a part value asynchronously, then they must call
-   * `part.commit()` manually.
-   */
-  commit(): void;
+    /**
+     * Commits the current part value, causing it to actually be written to the
+     * DOM.
+     *
+     * Directives are run at the start of `commit`, so that if they call
+     * `part.setValue(...)` synchronously that value will be used in the current
+     * commit, and there's no need to call `part.commit()` within the directive.
+     * If directives set a part value asynchronously, then they must call
+     * `part.commit()` manually.
+     */
+    commit(): void;
 }
 
 /**

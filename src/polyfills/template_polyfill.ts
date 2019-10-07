@@ -12,7 +12,7 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import {removeNodes, reparentNodes} from '../lib/dom.js';
+import { removeNodes, reparentNodes } from '../lib/dom.js';
 
 /**
  * A lightweight <template> polyfill that supports minimum features to cover
@@ -24,47 +24,46 @@ import {removeNodes, reparentNodes} from '../lib/dom.js';
  * polyfill: https://github.com/webcomponents/template
  */
 export const initTemplatePolyfill = (forced = false) => {
-  // Minimal polyfills (like this one) may provide only a subset of Template's
-  // functionality. So, we explicitly check that at least content is present to
-  // prevent installing patching with multiple polyfills, which might happen if
-  // multiple versions of lit-html were included on a page.
-  if (!forced && 'content' in document.createElement('template')) {
-    return;
-  }
-  const contentDoc = document.implementation.createHTMLDocument('template');
-  const body = contentDoc.body;
-  const descriptor = {
-    enumerable: true,
-    configurable: true,
-  };
-
-  const upgrade = (template: HTMLTemplateElement) => {
-    const content = contentDoc.createDocumentFragment();
-    Object.defineProperties(template, {
-      content: {
-        ...descriptor,
-        get() {
-          return content;
-        },
-      },
-      innerHTML: {
-        ...descriptor,
-        set: function(text) {
-          body.innerHTML = text;
-          removeNodes(content, content.firstChild);
-          reparentNodes(content, body.firstChild);
-        },
-      },
-    });
-  };
-
-  const capturedCreateElement = Document.prototype.createElement;
-  Document.prototype.createElement = function createElement(
-      tagName: string, options?: ElementCreationOptions) {
-    const el = capturedCreateElement.call(this, tagName, options);
-    if (el.tagName === 'TEMPLATE') {
-      upgrade(el as HTMLTemplateElement);
+    // Minimal polyfills (like this one) may provide only a subset of Template's
+    // functionality. So, we explicitly check that at least content is present to
+    // prevent installing patching with multiple polyfills, which might happen if
+    // multiple versions of lit-html were included on a page.
+    if (!forced && 'content' in document.createElement('template')) {
+        return;
     }
-    return el;
-  };
+    const contentDoc = document.implementation.createHTMLDocument('template');
+    const body = contentDoc.body;
+    const descriptor = {
+        enumerable: true,
+        configurable: true
+    };
+
+    const upgrade = (template: HTMLTemplateElement) => {
+        const content = contentDoc.createDocumentFragment();
+        Object.defineProperties(template, {
+            content: {
+                ...descriptor,
+                get() {
+                    return content;
+                }
+            },
+            innerHTML: {
+                ...descriptor,
+                set: function(text) {
+                    body.innerHTML = text;
+                    removeNodes(content, content.firstChild);
+                    reparentNodes(content, body.firstChild);
+                }
+            }
+        });
+    };
+
+    const capturedCreateElement = Document.prototype.createElement;
+    Document.prototype.createElement = function createElement(tagName: string, options?: ElementCreationOptions) {
+        const el = capturedCreateElement.call(this, tagName, options);
+        if (el.tagName === 'TEMPLATE') {
+            upgrade(el as HTMLTemplateElement);
+        }
+        return el;
+    };
 };
