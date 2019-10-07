@@ -13,7 +13,7 @@
  */
 
 import { unsafeHTML } from '../../directives/unsafe-html';
-import { html, render } from '../../lit-html.js';
+import { html, render } from '../../lit-html';
 import { stripExpressionMarkers } from '../test-utils/strip-markers';
 
 const assert = chai.assert;

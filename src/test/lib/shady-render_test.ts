@@ -12,9 +12,9 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import { render as shadyRender } from '../../lib/shady-render.js';
-import { html } from '../../lit-html.js';
-import { renderShadowRoot } from '../test-utils/shadow-root.js';
+import { render as shadyRender } from '../../lib/shady-render';
+import { html } from '../../lit-html';
+import { renderShadowRoot } from '../test-utils/shadow-root';
 
 const assert = chai.assert;
 

@@ -13,7 +13,7 @@
  */
 
 import { __testOnlySetSanitizeDOMValueExperimentalMayChangeWithoutWarning } from '../../lib/parts';
-import { __testOnlyClearSanitizerDoNotCallOrElse } from '../../lib/parts.js';
+import { __testOnlyClearSanitizerDoNotCallOrElse } from '../../lib/parts';
 import {
     AttributeCommitter,
     AttributePart,
@@ -25,8 +25,8 @@ import {
     render,
     templateFactory,
     TemplateResult
-} from '../../lit-html.js';
-import { stripExpressionMarkers } from '../test-utils/strip-markers.js';
+} from '../../lit-html';
+import { stripExpressionMarkers } from '../test-utils/strip-markers';
 
 const assert = chai.assert;
 chai.config.truncateThreshold = 0; // ask chai to produce diffs

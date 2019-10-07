@@ -12,19 +12,19 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import * as LibDefaultTemplateProcessor from '../lib/default-template-processor.js';
-import * as LibDirective from '../lib/directive.js';
-import * as LibPart from '../lib/part.js';
-import * as LibParts from '../lib/parts.js';
-import * as LibRender from '../lib/render.js';
-import * as LibTemplateFactory from '../lib/template-factory.js';
-import * as LibTemplateInstance from '../lib/template-instance.js';
-import * as LibTemplateResult from '../lib/template-result.js';
-import * as LitHtml from '../lit-html.js';
+import * as LibDefaultTemplateProcessor from '../lib/default-template-processor';
+import * as LibDirective from '../lib/directive';
+import * as LibPart from '../lib/part';
+import * as LibParts from '../lib/parts';
+import * as LibRender from '../lib/render';
+import * as LibTemplateFactory from '../lib/template-factory';
+import * as LibTemplateInstance from '../lib/template-instance';
+import * as LibTemplateResult from '../lib/template-result';
+import * as LitHtml from '../lit-html';
 
 const assert = chai.assert;
 
-suite('index.js', () => {
+suite('index', () => {
     test('html tag returns a TemplateResult', () => {
         assert.instanceOf(LitHtml.html``, LibTemplateResult.TemplateResult);
     });
@@ -33,31 +33,31 @@ suite('index.js', () => {
         assert.instanceOf(LitHtml.svg``, LibTemplateResult.SVGTemplateResult);
     });
 
-    test('exports everything from lib/template-result.js', () => {
+    test('exports everything from lib/template-result', () => {
         Object.keys(LibTemplateResult).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/default-template-processor.js', () => {
+    test('exports everything from lib/default-template-processor', () => {
         Object.keys(LibDefaultTemplateProcessor).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/template-instance.js', () => {
+    test('exports everything from lib/template-instance', () => {
         Object.keys(LibTemplateInstance).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/part.js', () => {
+    test('exports everything from lib/part', () => {
         Object.keys(LibPart).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/parts.js', () => {
+    test('exports everything from lib/parts', () => {
         Object.keys(LibParts)
             .filter((k) => !/^__testOnly/.test(k))
             .forEach((key) => {
@@ -65,19 +65,19 @@ suite('index.js', () => {
             });
     });
 
-    test('exports everything from lib/directive.js', () => {
+    test('exports everything from lib/directive', () => {
         Object.keys(LibDirective).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/render.js', () => {
+    test('exports everything from lib/render', () => {
         Object.keys(LibRender).forEach((key) => {
             assert.property(LitHtml, key);
         });
     });
 
-    test('exports everything from lib/template-factory.js', () => {
+    test('exports everything from lib/template-factory', () => {
         Object.keys(LibTemplateFactory).forEach((key) => {
             assert.property(LitHtml, key);
         });

@@ -11,7 +11,7 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import { render } from '../../lib/shady-render.js';
+import { render } from '../../lib/shady-render';
 
 /**
  * A helper for creating a shadowRoot on an element.
