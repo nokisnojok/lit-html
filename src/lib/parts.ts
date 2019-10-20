@@ -90,7 +90,7 @@ export const __testOnlyClearSanitizerDoNotCallOrElse = () => {
     sanitizeDOMValueImpl = undefined;
 };
 
-export const templateResultNodePartMap = new WeakMap();
+export const templateResultNodePartMap: WeakMap<any, NodePart> = new WeakMap();
 
 /**
  * Writes attribute values to the DOM for a group of AttributeParts bound to a
