@@ -58,16 +58,16 @@ export { TemplateProcessor } from './lib/template-processor';
 export { SVGTemplateResult, TemplateResult } from './lib/template-result';
 export { createMarker, isTemplatePartActive, Template } from './lib/template';
 
-declare global {
-    interface Window {
-        litHtmlVersions: string[];
-    }
-}
+// declare global {
+//     interface Window {
+//         litHtmlVersions: string[];
+//     }
+// }
 
 // IMPORTANT: do not change the property name or the assignment expression.
 // This line will be used in regexes to search for lit-html usage.
 // TODO(justinfagnani): inject version number at build time
-(window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.1.2');
+// (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.1.2');
 
 /**
  * Interprets a template literal as an HTML template that can efficiently
