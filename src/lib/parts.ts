@@ -540,7 +540,7 @@ try {
     window.removeEventListener('test', options as any, options);
 } catch (_e) {}
 
-type EventHandlerWithOptions = EventListenerOrEventListenerObject & Partial<AddEventListenerOptions>;
+export type EventHandlerWithOptions = EventListenerOrEventListenerObject & Partial<AddEventListenerOptions>;
 export class EventPart implements Part {
     readonly element: Element;
     readonly eventName: string;
